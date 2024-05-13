@@ -1,0 +1,27 @@
+{
+	"name": "ds_high_value_order_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls_deadlsdev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "orders dataset"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "highvalue",
+				"fileSystem": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

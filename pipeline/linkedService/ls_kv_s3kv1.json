@@ -1,0 +1,11 @@
+{
+	"name": "ls_kv_s3kv1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://s3kv1.vault.azure.net/"
+		}
+	}
+}

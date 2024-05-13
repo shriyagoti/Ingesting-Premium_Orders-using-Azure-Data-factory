@@ -1,0 +1,24 @@
+{
+	"name": "tr_ingest_process_orders",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_execute_orders",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/ordersinput/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/c76a3786-9e3b-4355-8ccb-340c6af1cb7a/resourceGroups/de-rs/providers/Microsoft.Storage/storageAccounts/deblobdev",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
