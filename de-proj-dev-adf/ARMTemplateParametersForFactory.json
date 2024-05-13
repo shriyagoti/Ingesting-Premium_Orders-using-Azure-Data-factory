@@ -1,0 +1,37 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "de-proj-dev-adf"
+		},
+		"ls_adls_deadlsdev_accountKey": {
+			"value": ""
+		},
+		"ls_blob_deblobdev_connectionString": {
+			"value": ""
+		},
+		"ls_sql_retaildb_connectionString": {
+			"value": ""
+		},
+		"ls_adls_deadlsdev_properties_typeProperties_url": {
+			"value": "https://deadlsdev.dfs.core.windows.net/"
+		},
+		"ls_kv_s3kv1_properties_typeProperties_baseUrl": {
+			"value": "https://s3kv1.vault.azure.net/"
+		},
+		"ls_s3_orders_raw_properties_typeProperties_accessKeyId": {
+			"value": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_s3kv1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "accesskey"
+			}
+		},
+		"tr_ingest_process_orders_properties_typeProperties_scope": {
+			"value": "/subscriptions/c76a3786-9e3b-4355-8ccb-340c6af1cb7a/resourceGroups/de-rs/providers/Microsoft.Storage/storageAccounts/deblobdev"
+		}
+	}
+}

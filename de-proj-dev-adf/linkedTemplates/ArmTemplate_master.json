@@ -1,0 +1,98 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "de-proj-dev-adf"
+		},
+		"ls_adls_deadlsdev_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_deadlsdev'"
+		},
+		"ls_blob_deblobdev_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_deblobdev'"
+		},
+		"ls_sql_retaildb_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_sql_retaildb'"
+		},
+		"ls_adls_deadlsdev_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://deadlsdev.dfs.core.windows.net/"
+		},
+		"ls_kv_s3kv1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://s3kv1.vault.azure.net/"
+		},
+		"ls_s3_orders_raw_properties_typeProperties_accessKeyId": {
+			"type": "object",
+			"defaultValue": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_s3kv1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "accesskey"
+			}
+		},
+		"tr_ingest_process_orders_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/c76a3786-9e3b-4355-8ccb-340c6af1cb7a/resourceGroups/de-rs/providers/Microsoft.Storage/storageAccounts/deblobdev"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "de-proj-dev-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_adls_deadlsdev_accountKey": {
+						"value": "[parameters('ls_adls_deadlsdev_accountKey')]"
+					},
+					"ls_blob_deblobdev_connectionString": {
+						"value": "[parameters('ls_blob_deblobdev_connectionString')]"
+					},
+					"ls_sql_retaildb_connectionString": {
+						"value": "[parameters('ls_sql_retaildb_connectionString')]"
+					},
+					"ls_adls_deadlsdev_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_deadlsdev_properties_typeProperties_url')]"
+					},
+					"ls_kv_s3kv1_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_kv_s3kv1_properties_typeProperties_baseUrl')]"
+					},
+					"ls_s3_orders_raw_properties_typeProperties_accessKeyId": {
+						"value": "[parameters('ls_s3_orders_raw_properties_typeProperties_accessKeyId')]"
+					},
+					"tr_ingest_process_orders_properties_typeProperties_scope": {
+						"value": "[parameters('tr_ingest_process_orders_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
